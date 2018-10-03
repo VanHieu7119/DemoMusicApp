@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_10"
+    >
+    <ImageView
+        android:id="@+id/imageSong"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+
+        android:paddingRight="@dimen/dp_10"
+        android:src="@drawable/ic_file_mp3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/textViewNameSongMini"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:id="@+id/textViewNameSongMini"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Ten Bai Hat.mp3"
+        android:textSize="@dimen/dp_18"
+        android:textStyle="normal"
+
+        app:layout_constraintLeft_toRightOf="@+id/imageSong"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:id="@+id/textViewNameArtistMini"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Tên Nghệ Sĩ"
+        android:padding="1dp"
+        android:textSize="@dimen/dp_15"
+        app:layout_constraintLeft_toRightOf="@id/imageSong"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNameSongMini"
+        />
+</android.support.constraint.ConstraintLayout>
