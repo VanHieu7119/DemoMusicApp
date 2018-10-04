@@ -125,6 +125,10 @@ public class FragmentPlayMusic extends Fragment
         mButtonPlayMini = view.findViewById(R.id.buttonPlayMini);
         mImageMusicMini = view.findViewById(R.id.imageDiscMini);
 
+        mButtonPreviousMini.setOnClickListener(this);
+        mButtonPlayMini.setOnClickListener(this);
+        mButtonNextMini.setOnClickListener(this);
+
         mButtonBack.setOnClickListener(this);
         mButtonDownload.setOnClickListener(this);
         mButtonPrevious.setOnClickListener(this);
@@ -166,8 +170,8 @@ public class FragmentPlayMusic extends Fragment
 
     private void setServiceConnection() {
         if (isBoundService) {
-            setUISong();
             mServicePlayMusic.play(mPosition, mSongList);
+            setUISong();
             mButtonPlay.setImageResource(R.drawable.ic_pause_black_24dp);
         }
         mHandler.postDelayed(mRunnable, 0);
@@ -260,12 +264,10 @@ public class FragmentPlayMusic extends Fragment
             case R.id.buttonBack:
                 view.findViewById(R.id.layout_top).setVisibility(View.GONE);
                 view.findViewById(R.id.layout_bottom).setVisibility(View.VISIBLE);
-//                viewMain.findViewById(R.id.rv_song).setVisibility(View.VISIBLE);
-
                 break;
             case R.id.buttonNext:
                 mButtonPlay.setImageResource(R.drawable.ic_pause_black_24dp);
-
+                mButtonPlayMini.setImageResource(R.drawable.ic_pause_black_24dp);
                 if (mPosition == mSongList.size() - 1) {
                     mPosition = 0;
                 } else {
@@ -273,15 +275,18 @@ public class FragmentPlayMusic extends Fragment
                 }
                 mServicePlayMusic.next();
                 setUISong();
+                setUISongMini();
                 break;
 
             case R.id.buttonPlay:
                 if (mServicePlayMusic.checkPlay()) {
                     mButtonPlay.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                    mButtonPlayMini.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                     rotateAnimation.setRepeatCount(0);
-                    mImageMusic.startAnimation(rotateAnimation);
+                    mImageMusic.clearAnimation();
                 } else {
                     mButtonPlay.setImageResource(R.drawable.ic_pause_black_24dp);
+                    mButtonPlayMini.setImageResource(R.drawable.ic_pause_black_24dp);
                     rotateAnimation.setRepeatCount(Animation.INFINITE);
                     mImageMusic.startAnimation(rotateAnimation);
                 }
@@ -289,14 +294,54 @@ public class FragmentPlayMusic extends Fragment
                 break;
             case R.id.buttonPrevious:
                 mButtonPlay.setImageResource(R.drawable.ic_pause_black_24dp);
+                mButtonPlayMini.setImageResource(R.drawable.ic_pause_black_24dp);
                 if (mPosition == 0) {
                     mPosition = mSongList.size() - 1;
                 } else {
                     mPosition--;
                 }
                 mServicePlayMusic.previous();
+                setUISongMini();
                 setUISong();
                 break;
+            case R.id.buttonNextMini:
+                mButtonPlayMini.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                mButtonPlay.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                if (mPosition == mSongList.size() - 1) {
+                    mPosition = 0;
+                } else {
+                    mPosition++;
+                }
+                mServicePlayMusic.next();
+                setUISongMini();
+                setUISong();
+                break;
+            case R.id.buttonPlayMini:
+                if (mServicePlayMusic.checkPlay()) {
+                    mButtonPlayMini.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                    mButtonPlay.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                    rotateAnimation.setRepeatCount(0);
+                    mImageMusic.clearAnimation();
+                } else {
+                    mButtonPlayMini.setImageResource(R.drawable.ic_pause_black_24dp);
+                    mButtonPlay.setImageResource(R.drawable.ic_pause_black_24dp);
+                    rotateAnimation.setRepeatCount(Animation.INFINITE);
+                    mImageMusic.startAnimation(rotateAnimation);
+                }
+                break;
+            case R.id.buttonPreviousMiNi:
+                mButtonPlayMini.setImageResource(R.drawable.ic_pause_black_24dp);
+                mButtonPlay.setImageResource(R.drawable.ic_pause_black_24dp);
+                if (mPosition == 0) {
+                    mPosition = mSongList.size() - 1;
+                } else {
+                    mPosition--;
+                }
+                mServicePlayMusic.previous();
+                setUISongMini();
+                setUISong();
+                break;
+
         }
     }
 
